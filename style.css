@@ -32,6 +32,14 @@ header {
     margin-bottom: 20px;
 }
 
+footer {
+    justify-content: space-between;
+    margin: 50px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
 .logo {
     width: 180px;
     height: fit-content;
