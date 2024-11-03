@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Arşivi -Anime Seyret</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/logo.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <style>
+        @font-face {
+    font-family: consolas;
+    src: url("fonts/consolas.ttf");
+}
+
+body{
+    background-image: url('images/77.gif');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.entirePage{ /*siteyi açınca çıkan büyük kutu (her sayfada bu var)*/
+    width: 60%;
+    height: 270vh;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 3px rgba(75, 0, 130, 0.9) solid;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(75, 0, 130, 0.9);
+    margin-top: 20px;
+    margin-bottom: 100px;
+    overflow: hidden;
+}
+
+.entirePage *{ /*büyük kutunun içindeki herşey*/
+    position: relative;
+    font-family: "consolas";
+}
+
+.mainLogo{ /*logo*/
+    width: 15vh;
+    margin-left: 30px;
+    top: 1%;
+    cursor: pointer
+}
+
+.mainSearchArea{ /*aratma kısmı*/
+    width: 30vh;
+    height: 5vh;
+    border: 2px white solid;
+    background-color: rgb(181, 181, 181);
+    border-radius: 50px;
+    margin-top: -50px;
+    text-align: center;
+}
+
+.mainHeader{ /*anasayfa, takvim vb. tuşlarını kapsayan kutu*/
+    color: white;
+    margin-top: 15px;
+}
+
+.mainHeader *{ /*anasayfa, takvim vb. tuşlarını kapsayan kutunun içindeki herşey*/
+    cursor: pointer;
+    text-align: center;
+    border: 1px rgb(255, 255, 255) solid;
+    float: left;
+    background-color: rgba(177, 177, 177, 0.652);
+    width: 23%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    z-index: 1;
+}
+
+.mainHeaderBox:hover{ /*mainHeader içindeki kutulara sürükleme efekti*/
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+    transform: scale(1.2);
+}
+
+.mainHeaderBox:nth-child(1){
+    margin-left: 50px;
+}  
+.anime-archive {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.anime-card { /*animelerin kutusu*/
+    display: flex;
+    background-color: rgba(24, 24, 24, 0.7);
+    border: 2px solid rgba(75, 0, 130, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    margin: 10px 0;
+}
+.anime-image {
+    cursor: pointer; /* Tıklanabilir işaretçi */
+}
+
+.anime-image img {
+    width: 100%; /* Görüntüyü kart boyutuna sığdırır */
+    height: auto; /* Yükseklik orantısını korur */
+}
+
+.anime-card:hover .anime-image img {
+    opacity: 0.9; /* Hover durumunda görüntünün opaklığını azaltır */
+}
+
+.anime-card img {
+    width: 170px;
+    height: 220px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.anime-info {
+    max-height: 220px; /*kutu yüksekliği*/
+    overflow-y: auto; 
+    
+}
+.anime-info::-webkit-scrollbar {
+    display: none; 
+}
+.anime-info h2 {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.anime-info p {
+    margin-bottom: 5px;
+    color: #d3d3d3;
+    line-height: 1.4;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination-button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #6b0096;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination-button:hover {
+    background-color: #b861f1;
+    transform: scale(1.1);
+}
+
+    </style>
+    
+    <!-- Main Page -->
+    <div id="mainPage" class="entirePage" style="display: block;">
+        <!--Bu kısım tüm sayfalarda aynı.-->
+        <img class="mainLogo" src="images/logo.png" onclick="location.href='index.html'"> <!--LOGO-->
+        <center><input class="mainSearchArea" type="text" placeholder="Arama yapınız..."></center> <!--ARAMA KISMI-->
+        <div class="mainHeader"> <!--anasayfa-takvim-animearşivi-iletişim yeri-->
+            <div class="mainHeaderBox" onclick="location.href='index.html'">Ana Sayfa</div>
+            <div class="mainHeaderBox">Haberler</div>
+            <div class="mainHeaderBox" onclick="location.reload()">Anime Arşivi</div>
+            <div class="mainHeaderBox">İletişim</div>
+        </div>
+
+        <!-- Anime Kartları -->
+<div class="anime-archive">
+ </div>
+
+<div class="anime-content"></div>
+<main>
+    <div class="anime-archive"></div> <!-- Anime kartları buraya eklenecek -->
+    <div class="pagination"></div> <!-- Sayfalandırma butonları buraya eklenecek -->
+</main>
+
+    
+    <script>
+        const animeList = [
+    {
+        title: "Jujutsu Kaisen",
+        image: "images/jjk.webp",
+        description: "Bir çocuk… “doğru ölüm” için savaşır. Zorluklar, pişmanlık, utanç… İnsanların hissettiği olumsuz duygular günlük hayatımızda gizlenen lanetlere dönüşür. Lanetler tüm dünyaya yayılır; insanları korkunç bir talihsizliğe, hatta ölüme götürebilir. Dahası, lanetler yalnızca başka bir lanetle defedilebilir. Itadori Yuji sıradan bir lise hayatı yaşamakla birlikte çok büyük bir fiziksel güce sahiptir. Bir gün, lanetlerce saldırıya uğrayan bir arkadaşını kurtarmak için İki Yüzlü Hayalet’in parmağını yer ve laneti kendi ruhuna alır. Artık İki Yüzlü Hayalet ile aynı bedeni paylaşmaktadır. Büyücülerin en güçlüsü olan Gojo Satoru’nun yönlendirmesiyle, lanetlerle savaşan bir organizasyon olan Tokyo Büyükşehir Teknik Büyücülük Lisesi’ne kabul edilir. Böylece, bir laneti def etmek için lanete dönüşen çocuğun kahramanlık masalı; asla geri dönemeyeceği hayatı başlar.",
+        year: 2020,
+        genre: "Aksiyon, Okul, Shounen, Doğaüstü Güçler, Şeytanlar",
+        page: "jjk.html" 
+    },
+    {
+        title: "Dandadan",
+        image: "images/dandadan.webp",
+        description: "Hayaletlerin mi yoksa uzaylıların mı var olduğunu kanıtlamak için iddiaya giren iki lise öğrencisi, paranormal tehditlerle karşı karşıya kalır, süper güçler kazanır ve aşka düşer.",
+        year: 2024,
+        genre: "Aksiyon, Komedi, Doğaüstü Güçler, Shounen",
+        page: "dandadan.html"
+    },
+    {
+        title: "Solo Leveling",
+        image: "images/solo.webp",
+        description: "On yıl önce insanların dünyasında büyü ve canavarların diyarını bağlayan bir ''Kapı'' beliriverdi. Belli bir süre sonrasında bu ''Kapı''ların içinden korkunç canavarlar çıkmaya başladı. Bu canavarlarla savaşabilmek için sıradan insanlar bilinmeyen bir şekilde insanüstü güçlere sahip oldu ve bu insanlara ''Avcı'' dendi. Yirmi yaşındaki baş karakterimiz Sung Jin-Woo'da bu ''Avcı''lardan birisidir amma velakin kendisi en düşük rütbe olan E rütbesindeki diğer avcılara kıyasla bile acınası bir durumdadır. Bu yüzden insanlar aralarında ona ''Dünyanın En Zayıf Avcısı'' demeye başladı ama yine de Sung Jin-Woo insanların dediklerini umursamadan hasta annesinin hastane masraflarını karşılayabilmek için düşük seviye kapılarda canavar avlamaya devam etti. Her bir avında bir şekilde yaralanmayı başarabilen Sung Jin-Woo yine de her seferinde bir şekilde hayatta kalmayı başarmıştır ama son avında işler kelimenin tam anlamıyla yanlış gider ve kendisini daha önce hiç karşılaşmadığı bir ölüm tuzağında bulur. Kendisini bekleyen bu ölüm tuzağında Sung Jin-Woo hayatta kalabilecek midir acaba?",
+        year: 2024,
+        genre: "Aksiyon, Macera",
+        page: "solo.html"
+    },
+    {
+        title: "Blue Lock",
+        image: "images/bluelock.webp",
+        description: "2018 Dünya Kupası'ndaki kötü yenilgiden sonra, Japon Milli Takımı yeniden oluşum sürecine giriyor. Peki takımın eksiği nedir? Kesinlikle takımı zafere götürecek kilit bir golcü. Japonya Futbol Federasyonu, gole ve zafere aç ve geri düştükleri maçta bile her şeyi değişebilecek bir golcü yaratmayı kafaya koymuştur... ve bunun için, Japonya'nın 300 en iyi gelecek vaadeden genç oyuncusunu bir araya getirirler. Önündeki herkesi geride bırakıp zirveye çıkan kim olacak?",
+        year: 2022,
+        genre: "Spor, Shounen",
+        page: "bluelock.html"
+    },
+    {
+        title: "Isekai Shikkaku",
+        image: "images/is.webp",
+        description: "Isekai Shikkaku, başka bir dünyaya yolculuk eden melankolik bir yazar olan Osamu Dazai'nin hikayesini anlatır. Fantastik maceralar ve video oyunu benzeri güçlere sahip olmak, bir anime hayranının rüyası gibi görünse de, Dazai için tam tersidir. 1948'de video oyunları henüz icat edilmemişken başka bir dünyaya çekilen Dazai, aslında ölmeyi tercih ederdi. Onun için tüm bu fantastik maceralar, ölmek için mükemmel bir yer bulma hayalinin önünde bir engelden başka bir şey değildir. Ancak ne kadar çok risk alırsa alsın, her şey hep yolunda gider. Bu neşeli karamsar isekai komedisinde, sıradışı bir kahramanın hikayesini takip edin!",
+        year: 2024,
+        genre: "Isekai, Fantastik, Komedi, Macera, Parodi",
+        page: "is.html"
+    },
+    {
+        title: "Wistoria Wand & Sword",
+        image: "images/wws.webp",
+        description: "Will Serfort, çocukluk arkadaşına verdiği sözü tutmayı hayal eder ve Büyücü Kulesi'nin tepesinde oturan güçlü büyücülerden biri olan Magia Vander olmayı amaçlar. Ancak, en basit büyüleri bile yapamaz ve bu yüzden Regarden Büyü Akademisi'nde kredi kazanmak için zindan canavarlarıyla savaşmak zorundadır. Üstelik, bir de zorba bir profesöre karşı kılıç becerilerini sınamak zorunda kalır!",
+        year: 2024,
+        genre: "Aksiyon, Fantastik, Macera, Okul, Shounen",
+        page: "wws.html"
+    },
+    {
+        title: "My Hero Academia",
+        image: "images/mha.webp",
+        description: "İnsanlar eşit doğmazlar. Midoriya Izuku bunu dört yaşında özel güçleri olan sınıf arkadaşları tarafından zorbalığa uğradığında anladı. Izuku hiçbir özel gücü olmadan doğan nadir kişilerden biriydi. Ama bu durum Izuku'yu efsanevi kahraman All-Might gibi biri olma hayalinden vazgeçmesini sağlamadı. Umutsuzca kahraman olabilmek için ülkenin en iyi Kahraman Okulu olan Yueikoya katıldı. İdolü All-Might'ın da yardımıyla hayallerindeki gerçek kahraman olabilecek mi?",
+        year: 2016,
+        genre: "Aksiyon, Okul, Shounen, Süper Güçler, Komedi",
+        page: "mha.html"
+    },
+    {
+        title: "Oshi no Ko",
+        image: "images/oshinoko.webp",
+        description: "Daha on altısında olan Ai Hoshino, hayranlarının gözbebeği olan genç bir idoldür. Bu genç kız günün birinde kendisine hayran olan Gorou Amemiya adındaki jinekologun iş yerine uğrar. Hayranı olduğu idolün hamile olduğunu gören doktor şaşkınlığını gizleyemese de Ai'nin çocuklarını doğurmasına yardım edeceğini söyler. Ta ki gizemli bir ölümle yüzleşene kadar...",
+        year: 2023,
+        genre: "Anime, Doğaüstü Güçler, Dram",
+        page: "oshinoko.html"
+    },
+    {
+        title: "Seirei Gensouki: Spirit Chronicles",
+        image: "images/sgs.webp",
+        description: "Amakawa Haruto, beş yıl önce kaybolan çocukluk arkadaşıyla tekrar bir araya gelmeden ölen genç bir adamdır. Rio, beş yaşındayken gözünün önünde öldürülen annesinin intikamını almak isteyen kenar mahallelerde yaşayan bir çocuktur. İki farklı dünya. Tamamen farklı geçmişlere ve değerlere sahip iki insan. Nedense ölmesi gereken Haruto'nun anıları ve kişiliği, Rio'nun vücudunda yeniden canlanır. İkisinin hafızaları ve kişilikleri birbirine karışırken kafası karışırken, Rio bu yeni dünyada yaşamaya karar verir. Haruto'nun anılarıyla birlikte Rio, bilinmeyen bir özel gücü uyandırır ve bunu iyi kullanırsa daha iyi bir hayat yaşayabileceği anlaşılıyor. Ancak bundan önce Rio, içinde yaşadığı Bertram Krallığı'nın bir prensesine ait olduğu ortaya çıkan bir adam kaçırma olayıyla karşılaşır. Prensesi kurtardıktan sonra Rio'ya zengin ve güçlüler için bir okul olan Kraliyet Akademisi'nde burs verilir. Bir soylular okulunda fakir bir yetim olmak, son derece iğrenç bir yer haline gelir.",
+        year: 2021,
+        genre: "Fantastik, Aksiyon, Romantizm, Macera, Dram, Isekai, Harem",
+        page: "sgs.html"
+    },
+    {
+        title: "Blue Exorcist",
+        image: "images/bx.webp",
+        description: "Dünya, ayna gibi birbirine zıt iki farklı boyuttan oluşmaktaydı: İnsanların yaşadığı Assiah ve iblislerin hüküm sürdüğü Gehenna. Bu iki boyut arasında iletişim ve seyahat mümkün olmamasına rağmen iblisler, insanların ruhlarını ele geçirerek Assiah'a ulaşabiliyorlardı. İblislerin tanrısı Şeytan, kendisini barındırabilecek kadar güçlü bir insan bulamadığı için Gehenna'da sıkışıp kalmıştı. Bunu aşmak için, bir insan kadınından Okumura Rin adında bir çocuk sahibi oldu. Şeytan'ın oğlu, babasına yardım edecek mi, yoksa başka bir şeye mi dönüşecek? Bir ruh kovucuya mı?",
+        year: 2011,
+        genre: "Fantastik, Aksiyon, Shounen, Doğaüstü Güçler, Şeytanlar",
+        page: "bx.html"
+    }, 
+    {
+        title: "Henjin no Salad Bowl",
+        image: "images/hnjns.webp",
+        description: "Fakir bir detektif olan, Sousuke Kaburaya, başka bir dünyadan gelen ve sihirli güçleri olan bir prensesle, Sara ile tanışır. Birlikte yaşamaya başlarlar ve Sara, modern Japon hayatına hızlıca alışır.",
+        year: 2024,
+        genre: "Fantastik, Komedi",
+        page: "hnjns.html"
+    }, 
+{
+        title: "Maou no Ore ga Dorei Elf wo Yome ni Shitanda ga, Dou Medereba Ii?",
+        image: "images/maouelfwife.webp",
+        description: "Kaba, sivri dilli ve şeytani büyücü olarak korkulan Zagan, bir sabah araştırma yaparken yine arazisine giren haydutları öldürmek zorunda kalır. Kara borsada, eşsiz güzelliğe sahip beyaz bir köle elf olan Nephie'yi bulur. İlk görüşte aşık olup servetini onu satın almak için kullanır ama sosyal açıdan zayıf olduğu için onunla nasıl konuşacağını bilemez. Böylece, efendisinin peşinden koşup nasıl yetişeceğini bilmeyen köle ve aşkını ulaştıramayan büyücünün evli bir çift gibi birlikte acemi yaşamları başlar.",
+        year: 2024,
+        genre: "Aksiyon, Fantastik, Romantizm",
+        page: "maouelf.html"
+    }, 
+{
+        title: "DARLING in the FRANXX",
+        image: "images/dfrnxx.webp",
+        description: "Uzak bir gelecekte dünya mahvolmuş, insanlık hareketli kale şehir Plantation’u kurmuştur. Plantation’da Pilot olmak üzere yaratılmış çocuklar aynı zamanda kuş kafesi olarak bilinen Mistillteinn’da yaşamaktadırlar. Burada gökyüzündeki özgürlük ya da dış dünya hakkında hiçbir şey bilmeden hayatlarını sürdüren ve Franxx adı verilen robotların pilotluğunu yapan çocukların tek görevi Kyouryuu adı verilen devasa yaşam formlarıyla savaşmaktır. Bu çocuklar için Franxx’ler hayatlarının anlamıdır. Bir zamanlar dahi olarak bilinen Code:016 kod isimli Hiro, görevini yerine getiremeyip başarısız olduğunda varlığı anlamını yitirmiştir. Günün birinde Zero Two ismiyle kendini tanıtan ve başının iki yanında boynuzları bulunan gizemli bir kızla tanışır.",
+        year: 2018,
+        genre: "Mecha, Aksiyon, Romantizm, Bilim Kurgu, Dram",
+        page: "dfrnxx.html"
+    }, 
+{
+        title: "Takt Op. Destiny",
+        image: "images/taktop.webp",
+        description: "Bir gün, siyah bir meteoroid dünyaya düşer ve dünya tamamen değişir. Meteroid, D2 adında, kontrolden çıkan grotesk canavarlar yaratmıştır. D2’ler hızlıca bütün müzikleri yasaklarlar- müzik de onların üstesinden gelebilecek tek şeydir. Fakat, D2’lere karşı ayaklanan bazı insanlar da vardır. Onlar, “Müzikart” adındaki, müziğin gücüne sahip olan genç kadınlardır. Bu genç kadınlar, canavarları yenebilen “skorlara” sahiptirler. Ayrıca, bu kadınları yönetebilen insanlar da vardır: Kondüktör’ler. Anime, 2047 yılında, D2’ler tarafından haraplaştırılan Amerika’da geçiyor. Takt, bir Kondüktör, Unmei adındaki bir Müzikart ile eşleştirilmiştir. Takt, müziğin dünyaya geri dönmesini arzular ve Unmei, D2’leri yenmeyi amaçlar. Birlikte hedefleri, New York’a ulaşmaktır.",
+        year: 2021,
+        genre: "Fantastik, Aksiyon",
+        page: "taktop.html"
+    }, 
+{
+        title: "Kakegurui",
+        image: "images/kakegurui.webp",
+        description: "Hyakkaou Akademisi, çok farklı bir müfredata sahip ayrıcalıklı bir kurumdur. Zenginler içerisinde bile zengin olduğunuzda sizi öne çıkaracak şey kitaplar ya da atletik yetenekler değildir. Rakibin aklından geçenleri anlamak ve uzlaşma sanatıdır. Bu becerileri sivriltmenin ise kumardan daha iyi bir yolu yoktur. İşte bu sebeple Hyakkaou Akademisi'nde kazananlar krallar gibi yaşarken kaybedenlerin canına okunur. Ne var ki okula Yumeko Jabami'nin katılması, herkese gerçek kumarın ne olduğunu öğretecektir.",
+        year: 2017,
+        genre: "Oyun, Okul, Shounen, Psikolojik, Gizem, Dram",
+        page: "kakegurui.html"
+    }, 
+    {
+        title: "Sword Art Online",
+        image: "images/sao.webp",
+        description: "Ben Neredeyim .. ?? . “” Bunu bilmeden önce, Kirito, destansı, fantazi benzeri bir sanal dünyaya tam bir dalış yapmıştır.. Hemen etrafta dolaşarak nerede olduğuna dair ipucu aramaya başlar. Karanlık zifiri bir ağaç vardır (Gigas Sedir) ve üzerine gelir. “Benim adım Eugeo. Tanıştığımıza memnun oldum, Kirito.” Her ne kadar sanal dünyanın bir sakini olsa'da – yani bir NPC – bu çocuk herhangi bir insan gibi aynı duyguları gösterir. Kirito, Eugeo ile bağ kurarken, bu dünyadan çıkmanın bir yolunu aramaya devam eder.. Bu arada, içinde derin bir anıyı hatırlıyor. Bu ile arasında olan bir anıyı hatırlar.Aslında hatırlamaması gereken bir anıdır bu. Ve bu anılarda, genç bir sarışın kız olan Eugeo'dan başka birini görüyor. Onun adı Alice. Ve asla unutulmaması gereken bir isim …",
+        year: 2012,
+        genre: "Fantastik, Oyun, Aksiyon, Romantizm, Macera",
+        page: "sao.html"
+    },
+{
+        title: "Sekai Saikou no Ansatsusha, Isekai Kizoku ni Tensei suru",
+        image: "images/assasinhero.webp",
+        description: "Dünyanın en başarılı suikastçısı emekliliğinden hemen önce ölünce kendini bir tanrıçanın karşısında bulur. Tanrıçanın dünyası felakete doğru gitmektedir ve bir suikastçının özel becerilerine ihtiyacı vardır. Böylece bu suikastçı, güçlü yeni yetenekler ve onlarca yıllık ölümcül bilgiyle donanmış bir şekilde ikinci hayatına Tuatha Dé suikastçı aristokrat hanesinin genç oğlu Lugh olarak başlar. Görevi: bu dünyadaki en güçlü kişiyi, kahramanı bulmak ve ortadan kaldırmak!",
+        year: 2021,
+        genre: "Fantastik, Aksiyon, Romantizm, Dram, Isekai",
+        page: "assasinhero.html"
+    },
+{
+        title: "Shinmai Ossan Boukensha, Saikyou Party ni Shinu hodo Kitaerarete Muteki ni Naru.",
+        image: "images/shinmaiossan.webp",
+        description: "Bir maceracının işe olabildiğince genç yaşta başlaması gerektiği herkesçe bilinen bir gerçektir, zira maceracıların esas gücünün geldiği sihirli güç genç yaşlarda eğitilmeye başlanmazsa, ileride çok az geliştirebilir. Ama Rick Gladiator adında bir adam, maceracılığa otuz-küsür yaşında başlamakla kalmayıp, dünyadaki en güçlü sınıf, S-sınıf bir savaş gücüne sahiptir. Hatta Rick, kıtanın en güçlü maceracılarından oluşan bir ekibin, efsanevi Orihalcon Fist'in üyeleriyle inanılmaz bir hayat sürmüştür. Rick ejderhalardan vampirlere, kelimenin tam anlamıyla ''canavar'' hocaları tarafından eğitilen dövüş becerileri sayesinde, onu küçümseyen bütün elit maceracıları birbiri ardına yenebilecektir",
+        year: 2024,
+        genre: "Aksiyon, Fantastik, Macera",
+        page: "shinmaiossan.html"
+    },
+{
+        title: "Sentai Daishikkaku",
+        image: "images/sentaid.webp",
+        description: "Dünya bundan on üç yıl önce, Kötü Canavar Ordusu tarafından işgal edilse de, insanlığın büyük koruyucuları, Ejderha Muhafızları onları tek bir yılda yenmeyi başarır! Savaştan geriye kalan canavarlar o zamandan beri her pazar günü, halkın önünde bu utanç verici yenilgiyi tekrar ve tekrar sergilemek zorunda bırakılır. Bunu değiştirmeye karar veren bir canavar, D, Ranger Kuvvetlerine sızar. Ve gizemli Ranger, Yumeko Suzukiri'nin yardımıyla kutsal eserlerden birini, canavarların ölümsüz bedenlerini kalıcı olarak öldürebilecek tek silahı ele geçirmeyi başarır. Ancak, D'nin Ejderha Muhafızları ile bir sonraki karşılaşması sonu olur. Peki ya şimdi onları kim durduracak?..",
+        year: 2024,
+        genre: "Aksiyon, Bilim Kurgu",
+        page: "sentaid.html"
+    },
+{
+        title: "Goblin Slayer",
+        image: "images/goblins.webp",
+        description: "“Dünyayı kurtardığım falan yok. Sadece goblinleri gebertiyorum.” Ön saflarda bir loncada sadece goblinleri avlayarak Gümüş-Seviyeye ulaşan Goblin Avcısı, önceleri tek başına avlansa da, ilk görevinde takımıyla birlikte öldürülmek üzereyken kurtardığı bir rahibe ile görevlere gitmeye başlar. Goblin Avcısı, goblinleri öldürmek için her türlü yöntemi kullanmaktadır. Daha sonra Goblin Avcısı ile Rahibenin ekibine Elf Okçu, Cüce Şaman ve Kertenkele Keşiş katılır. Goblin Avcısı ve ekibi gelen tüm goblin öldürme görevlerini üstlenirler.",
+        year: 2018,
+        genre: "Fantastik, Aksiyon, Macera",
+        page: "goblins.html"
+    },
+{
+        title: "Isekai Yakkyoku",
+        image: "images/iy.webp",
+        description: "Küçük kız kardeşini tedavisi olmayan bir hastalığa kaybettikten sonra, dünyaca ünlü araştırmacı Kanji Yakutani hayatını yeni ilaçlar üretmeye adayarak tüm hastalarını iyileştirmek için her şeyini verir. 31 yaşında çok çalışmaktan dolayı öldükten sonra eski eczacı, gözlerini vücudunu şimşek çarpmış 10 yaşında bir çocuk olarak açar. Sonradan, bir ortaçağ dünyasına Falma, saygın De Médicis ailesinin bir çocuğu, olarak reenkarne olduğunu keşfeder. İlahi sanatların var olduğu bir dünyada, Falma vücudunun tıbbın koruyucu tanrısına konak olduğunu fark eder. Falma, yaratma ve yok etmenin efsanevi, ilahi sanatıyla yanı sıra insanların hastalığını anında teşhis etme yeteneğiyle kutsanmıştır. Kısa bir süre sonra bu dünyadaki tıbbın vahim halinin farkına varır; en iyi ihtimalle etkisiz, en kötü ihtimalle yıkıcı olan sağlık hizmetinden sadece asillerin yararlanabildiğini fark eder. Modern bilimi ve ilahi güçlerini kullanarak, Falma genç yaşına rağmen zamanla eczacı olarak nam salar, imparatorluk sarayının bile takdirini kazanır. Sonunda kendine ait düzgün bir eczane edindiğinde, San Fleuve Krallığındaki sağlık hizmetini geliştirmenin ve herkese erişilebilir yapmanın peşine düşer.",
+        year: 2022,
+        genre: "Fantastik, Isekai",
+        page: "iy.html"
+    },
+{
+        title: "EDENS ZERO",
+        image: "images/edenszero.webp",
+        description: "Granbell Krallığı, terk edilmiş bir lunapark, Shiki bütün hayatını burada makinelerle beraber yaşadı. Ama bir gün, Rebecca ve kedisi Happy parkın ön kapısında belirdiler. Yeni ziyaretçilerin bilmediği ise Granbell'in yüzyıllar içerisindeki ilk konukları olduklarıydı. Shiki yeni arkadaşlar edinme yolunda tökezlerken, eski komşuları bir robot ayaklanması başlatmak için fırsat buldular... Ve eski memleketi çok tehlikeli bir hale gelince, Shiki'nin Rebecca ve Happy'nin uzay gemisine katılmaktan ve sınırsız uzaya kaçmaktan başka şansı kalmadı.",
+        year: 2021,
+        genre: "Fantastik, Bilim Kurgu, Aksiyon, Macera, Komedi",
+        page: "edenszero.html"
+    },
+    {
+        title: "Tate no Yuusha no Nariagari",
+        image: "images/tatenoysha.webp",
+        description: "Iwatani Naofumi, kahraman olmak için 3 kişi ile birlikte paralel bir dünyaya çağrılır ve bu çağrılan kahramanlar efsanevi ekipmanlarla donatıldılar. Kalkan Kahramanı olan Naofumi, ise deneyimsizliği ve yetersizliğinden dolayı en zayıf kahraman olarak görülür ve ihanete uğrar. Kendine ihanet edenlerden intikamını almaya ant içer. Böylece paralel dünyadaki kaderi başlar...",
+        year: 2019,
+        genre: "Fantastik, Aksiyon, Macera, Dram, Isekai",
+        page: "tatenoysha.html"
+    },
+{
+        title: "Tensei shitara Dainana Ouji Datta node, Kimama ni Majutsu wo Kiwamemasu",
+        image: "images/born7.webp",
+        description: "Büyü çalışmalarında en çok değer verilen unsurlar aile, yetenek ve gayrettir. Büyüye olan derin sevgisine rağmen sıradan biri olarak doğan ve yeteneği olmayan bir büyücü vardı. Eceliyle ölmek yerine bir adam tarafından öldürüleceği sırada büyüyle ilgili daha çok şeyler yapsaydım diye hayıflandı. Sonra Saloum Krallığı'nın yedinci prensi ve güçlü bir soydan olan Prens Lloyd olarak reenkarnasyona uğradı. Geçmişi en iyi büyücülerle dolu ailesi inanılmaz yetenekleriyle birlikte önceki hayatındaki anıları da onunla birlikte gelmişti. Geçmiş yaşamında ulaşamayacağı büyüleri keşfederek ve ustalaşarak yeni hayatından zevk almaya kararlıydı.",
+        year: 2024,
+        genre: "Fantastik, Macera",
+        page: "born7.html"
+    },
+{
+        title: "Chiyu Mahou no Machigatta Tsukaikata",
+        image: "images/chiyumahou.webp",
+        description: "Ken Usato kelimenin tam anlamıyla normal bir lise öğrencisidir. ortalama notları, hayalleri ve sıra dışı insanlardan hoşlanmama eğilimi vardır. Ancak öğrenci konseyinin hem popüler hem de sıra dışı başkan ve başkan yardımcısıyla karşılaştığında hemen onlarla arkadaş olur. Ken'in yeni arkadaşları başka bir dünyaya çekildiğinde tüm bunlar kesintiye uğrar ve kendisi de yanlışlıkla o dünyaya gider!",
+        year: 2024,
+        genre: "Fantastik, Aksiyon, Isekai",
+        page: "chiyumahou.html"
+    },
+    {
+        title: "Tomodachi Game",
+        image: "images/tmdchgm.webp",
+        description: "Yuuishi Katagiri hayatı boyunca maddi problemlerle boğuşmuş ama yakın arkadaş çevresi sayesinde halinden memnun ve pozitif olmayı öğrenmiştir. Arkadaşlarına verdiği sözü tutmak için, okul gezisi için gerekli parayı biriktirmeyi başarır. Ama toplanan para esrarengiz bir şekilde kaybolunca, Yuuishi’nin parayı toplamaktan sorumlu iki arkadaşı şüphe çeker: Shiho Sawaragi ve Makoto Shibe. Masum olmalarına rağmen, hırsız ortaya çıkmadığı için Shiho ve Makoto sorumluluğu üstlenir. Birkaç gün sonra, Yuushi ve arkadaşları onları buluşmaları için kandıran birer mektup alırlar. Bir araya geldiklerinde pusuya düşürülür ve kaçırılırlar. Kötücül içeriği sebebiyle yayından kaldırılan çizgi filmden bir karakter olan “Manabu-kun”un da bulunduğu bir odada uyanırlar. Manabu-kun’dan içlerinden birinin bir borcun ödenmesi için onları bir araya topladığını öğrenirler. Aralarındaki bağın gücünü ve birbirlerine duydukları güveni test edecek bir “Arkadaşlık Oyunu” oynamak zorundadırlar. Grubun güveni artan sırlar ve ihanetler yüzünden sarsılırken, Yuushi “arkadaşlarından” hangisine gerçekten güvenebileceğini ve hainin kimliğini bulmak zorundadır!",
+        year: 2022,
+        genre: "Dram, Gizem, Psikolojik",
+        page: "tmdchgm.html"
+    },
+{
+        title: "Tsuki ga Michibiku Isekai Douchuu",
+        image: "images/misumim.webp",
+        description: "Fantastik bir dünyaya çağrılarak, kahraman olarak görev yapması beklenen sıradan bir lise öğrencisi olan Makoto Misumi, Tanrıçanın gözüne çirkin görünmesi sebebiyle sürgün edilir. Vahşi doğada orklardan ejderhalara kadar her türlü yaratıkla karşılaşarak, olağanüstü büyü ve dövüş yeteneklerine kavuşur. Tanrılar ve insanlar tarafından terk edilen Misumi, gayretiyle bir sosyal reform hareketi başlatabilecek midir?",
+        year: 2021,
+        genre: "Macera, Fantastik, Aksiyon, Komedi, Isekai",
+        page: "misumim.html"
+    },
+{
+        title: "Tokidoki Bosotto Russia-go de Dereru Tonari no Alya-san",
+        image: "images/alya.webp",
+        description: "Yarı Rus yarı Japon olan Alisa Mikhailovna Kujou, okulunun idolü olarak kabul edilir. Uzun gümüş rengi saçları, büyüleyici mavi gözleri ve olağanüstü beyaz teni ile dikkat çeken Alisa, birçok erkek öğrencinin kalbini fethetmiştir ve diğer herkes tarafından da oldukça hayranlıkla karşılanır. Ancak, ulaşılmaz gibi görünen tavırları nedeniyle, neredeyse kusursuz olan bu kızın etrafında herkes temkinli davranır. Bu duruma istisna olan birkaç kişiden biri ise, Alisa'nın sırasının yanında oturan Masachika Kuze'dir. Masachika, günlerini anime izleyerek ve gacha oyunları oynayarak geçiren nispeten sıradan bir çocuktur. Kaygısız tavrına rağmen, Masachika, Alisa'nın ilgisini çeken tek öğrencidir. Tam olarak dürüst olamayan Alisa, Masachika'ya karşı sıklıkla sert davranır ve sevgisini sadece Rusça olarak ifade eder. Ancak, bilmeden, Masachika aslında bu dili anlayabilmektedir ve sadece kendi eğlencesi için anlamıyormuş gibi yapar. Bu tuhaf çift, esprili ve eğlenceli atışmalarını sürdürdükçe, ilişkileri giderek daha romantik ve keyifli hale gelir. Alisa, nihayet gerçek duygularını özgürce ifade etmeyi öğrenebilir.",
+        year: 2024,
+        genre: "Komedi, Okul, Romantizm",
+        page: "alya.html"
+    },
+{
+        title: "Kekkai Sensen",
+        image: "images/kksnsn.webp",
+        description: "New York ve Cehennem arasında açılan gedik, şehir sakinlerini ve diğer boyutlardaki yaratıkları bir balonun içine hapsetmiştir. Şimdiyse birileri bu balonu delmeye çalışmaktadır. Tarz sahibi bir grupsa bunu engellemeye çalışacaktır.",
+        year: 2015,
+        genre: "Fantastik, Aksiyon, Shounen, Doğaüstü Güçler, Vampir, Süper Güçler, Komedi",
+        page: "kksnsn.html"
+    }, 
+{
+        title: "Ragna Crimson",
+        image: "images/ragna.webp",
+        description: "Gökyüzünü, denizi ve karayı ejderhaların yönettiği bir dünyada, onlarla savaşıp, kazanacak olanlar, normal insan gücünün sınırlarını aşmalıdır. Ne pahasına olursa olsun zafere ulaşan ejderha avcısı Ragna, gizemli Crimson'la güçlerini birleştirir. Crimson'un motivasyonları belirsiz olsa da, ikisinin de hedefi aynıdır: ejderha hükümdarları yok etmek.",
+        year: 2023,
+        genre: "Aksiyon, Fantastik, Shounen",
+        page: "ragna.html"
+    }, 
+{
+        title: "Tower of God",
+        image: "images/towerofgod.webp",
+        description: "Tower of God hayatının büyük kısmını büyük ve gizemli kalenin altında geçirmiş, yalnız yakın arkadaşı Rachel ile birlikte olan 25. Bam isimli çocuğu konu alıyor. Rachel kaleye girdiğinde Bam da kapıyı açmayı başarıyor ve en yakın arkadaşını bulmaya çalışırken bu kalenin her katında zorluklarla yüzleşiyor.",
+        year: 2020,
+        genre: "Fantastik, Aksiyon, Macera, Gizem, Dram",
+        page: "towerofgod.html"
+    },
+{
+        title: "Isekai Nonbiri Nouka",
+        image: "images/isknobrn.webp",
+        description: "Otuz dokuz yaşında hastalıktan ölen Machio Hiraku'ya başka bir dünyaya gitme şansı verilir. Tanrı, Machio'ya gideceği yeni dünyada istediği dileklerini sorar. Tanrı'nın niyeti ona güç kuvvet vermek iken Machio, sağlıklı bir beden ister, Tanrı ona ikinci bir şans daha verir. Bir sonraki dileği barış içerisinde yaşamak olur. Tanrı üçüncü bir dilek hakkı daha verir ve Machio yerel dili bilmeyi seçer. Ve son bir dilek hakkı alan Machio, bir çiftçi olabilmeyi diler.",
+        year: 2023,
+        genre: "Fantastik, Harem, Yaşamdan Kesitler, Isekai",
+        page: "isknobrn.html"
+    },
+{
+        title: "Baki",
+        image: "images/baki.webp",
+        description: "Ana karakter Baki Hanma, dünyadaki en güçlü dövüşçü olan Yujiro Hanma yani babasını geçmek için yoğun bir antrenman yapar. Dünyanın en sert ve vahşi beş idam mahkûmu, Baki'yle yüzleşmek için toplanır. Amaçları yenilgiyi tatmaktır-- Benzersiz güçleri ve yetenekleri onları hayattan bıktırmıştır, ve şu anda onları ezmek ve yerle bir etmeyi uman Baki'nin peşindedirler. Bu krizde, diğer yeraltı dövüş sanatları savaşçıları Baki'nin tarafında dövüşmek için toplanırlar: Kaoru Hanayama, Gouki Shibukawa, Retsu Kaioh, ve Doppo Orochi. Sert idam mahkûmları ve Baki ile arkadaşları arasındaki destansı dövüş mücadelesi başlar!",
+        year: 2018,
+        genre: "Dövüş Sanatları, Aksiyon, Shounen",
+        page: "baki.html"
+    },
+    {
+        title: "Mashle",
+        image: "images/mashle.webp",
+        description: "Sihrin hâkim olduğu bir dünyada, genç ve güçsüz Mash Burnedead gen havuzu için büyük bir tehdittir ve temizlenmesi gerekiyordur. Bu yüzden ormanda gizlice yaşayan Mash, bütün gününü antrenman yaparak ve sihirle yarışabilecek kadar güçlü kaslar geliştirerek geçirir. Ancak kimliği ifşa olup, huzurlu hayatı tehlikeye girdiğinde Mash, topluma onun varlığını kabul etmekten başka bir seçenek bırakmayacak kadar güçlü bir rol olan “Kutsal Vizyoner” olma yolculuğuna başlar. Sihir gücü olmayan Mash, huzurlu hayatına devam edebilmek için, prestijli Easton Sihir Akademisi’ne kaydolur ve oradaki en güçlü ve seçkin insanların çocuklarıyla rekabet eder. Easton’da hayatta kalmak için en gerekli yetenek, sihirden yoksun olan Mash, sınıf arkadaşlarına karşı 1-0 geriden başlamak zorunda kalır. Ve bir gün Kutsal Vizyoner ünvanına sahip olabilmek için, sihre karşı yumruklarıyla savaşarak herkesi geride bırakmanın bir yolunu bulmalıdır!",
+        year: 2023,
+        genre: "Aksiyon, Fantastik, Komedi, Okul, Shounen, Parodi",
+        page: "mashle.html"
+    },
+{
+        title: "Fire Force",
+        image: "images/fforce.webp",
+        description: "Tokyo’da güneş çağının 198’nci yılında özel itfaiye ekipleri insanların kendiliğinden yanarak Infernolara dönüştüğü “Infernal” olarak adlandırılan durumla savaşmaktadır. Infernal ilk nesillerde sıradan yanma vakalarıyken ilerleyen nesiller insan formunu korurken alevleri kontrol edebilmeye başlamıştır. Ayağını istediği gibi ateşleyebilen Şeytan’ın Ayak İzi lakaplı Shinra Kusakabe karşılaştığı tüm Infernal olaylarını söndürmeye çalışmaktadır ve bu uğraşı sırasında diğer alev yönetenlerin oluşturduğu Özel İtfaiye Şirketi 8’e katılır. Infernal yaratan bir grubun ortaya çıkmasıyla, Shira 12 yıl önce ailesinin ölümüne neden olan gizemli yangının üzerindeki sır perdesini aralamaya başlar.",
+        year: 2019,
+        genre: "Aksiyon, Shounen, Doğaüstü Güçler",
+        page: "fforce.html"
+    },
+{
+        title: "Tokyo Revengers",
+        image: "images/tkyrvngrs.webp",
+        description: "Takemichi Hanagaki, çaresizliğin dipsiz çukuruna düşmüş bir serbest çalışandır. Ortaokulda tanıştığı ve hayatı boyunca çıktığı tek kız olan Hinata Tachibana’nın acımasız Tokyo Manji Çetesi tarafından öldürüldüğünü öğrenir. Sonraki gün istasyon platformundaki kalabalık tarafından raylara itilir. Öleceğini düşünerek gözlerini kapatır fakat tekrar açtığında zamanda 12 yıl geriye gittiğini fark eder. Hayatının en iyi yıllarına dönen Takemichi, kız arkadaşını kurtarıp sürekli kaçtığı kendisini değiştirerek hayattan intikam almaya karar verir.",
+        year: 2021,
+        genre: "Doğaüstü Güçler, Aksiyon, Dram",
+        page: "tkyrvngrs.html"
+    },
+{
+        title: "Tokyo Ghoul",
+        image: "images/tkyghl.webp",
+        description: "Tokyo'da insanları yiyen gizemli hortlakların neden olduğu gerilim dolu bir korku hikayesi başlar. Bu gizemli hortlakların verdiği korku tüm insanları etkisi altına almıştır. Sıradan bir üniversite öğrencisi olan Kaneki, tıpkı kendisi gibi bir kitap kurdu olan Rize'yle Café Anteiku'da karşılaşır. Kaneki, kaderinin bir gecede değişeceğinin farkında değildir.",
+        year: 2014,
+        genre: "Korku, Aksiyon, Doğaüstü Güçler, Psikolojik, Seinen, Gizem, Dram",
+        page: "tkyghl.html"
+    },
+{
+        title: "Wind Breaker",
+        image: "images/wndbrkr.webp",
+        description: "Haruka Sakura zayıflarla ilgilenmiyor. O sadece en güçlülerle ilgilenir. Sakura’nın kavgacı ve acımasız olmasıyla bilinen Furin Lisesi’ne katılmasıyla bu söylentilerin gerçeği tam anlamıyla yansıtmadığını öğrenir. Onlar kavgacı ve acımasızdır evet ama yanlış olan bir şey vardır. Furin Lisesi’ndeki öğrenciler kasabayı kötü serserilerden korumaktadırlar. Sakura bu okulda güçlü olmanın ve gücün anlamını yeniden öğrenecektir. Onun zirveye olan mücadelesi sadece kahraman olmakla veya birilerine liderlik etmekle alakalı değil. Onu bu kavga ve mücadele dolu yolculuğunda acaba neler bekliyor?",
+        year: 2024,
+        genre: "Aksiyon, Okul",
+        page: "wndbrkr.html"
+    },
+{
+        title: "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo",
+        image: "images/100grl.webp",
+        description: "Aijou Rentarou, hayatında yüz defa red yemiş biri olarak. Ortaokul mezuniyetinde Aşk Tapınağı'Na gider. Orada dua ederken aniden Aşk Tanrısı çıkar ve kesinlikle alın yazısında biri olduğunu ve birbiriyle temas ettiğinde çarpılmış gibi bir his olduğunu açıklar. Lisenin ilk günü iki kızla çarpışır ve ikisinden de aynı hissi alır. Rentarou'nun sonradan öğreneceği gerçek ise alın yazısında 100 kişinin olduğudur.",
+        year: 2023,
+        genre: "Romantizm, Komedi, Harem, Okul",
+        page: "100grl.html"
+    },
+{
+        title: "Undead Unluck",
+        image: "images/unddnnclk.webp",
+        description: "En sevdiği manga serisinin sonunu okuduktan sonra Fuuko Izumo sonunda varlığını sona erdirmeye hazır hisseder. Fuuko, son 10 yıldır ona dokunan herkese büyük talihsizlik getirecek bir durumdan muzdariptir. Bunun çevresi üzerinde ciddi bir etkisi olmuştur, hatta ebeveynleri de dahil olmak üzere istemeden çevresindeki kişilerin ölümüyle sonuçlanmıştır. Tren raylarının üzerindeki bir köprüde duran Fuuko'ya garip bir adam dokunur ve altındaki temelin kırılmasına ve yaklaşan bir trenin önüne düşmesine neden olur. Ancak Fuuko adamın cesedini bulduğunda vücudunun yenilendiğini ve hayata geri döndüğünü fark eder. Fuuko'nun Andy adını verdiği adam ölümsüzdür ve kendisi gibi o da ölümü diler. Başlangıçta umursamaz olan Fuuko, sonunda Andy'ye mümkün olan en iyi ölümü vermek için ekip kurmaya karar verir; ancak ikilinin tuhaf yeteneklerinden yararlanmayı uman gizemli bir organizasyon gölgelerde gizlenmektedir.",
+        year: 2023,
+        genre: "Aksiyon, Doğaüstü Güçler, Komedi, Shounen, Süper Güçler",
+        page: "unddnnclk.html"
+    }, 
+    {
+        title: "Hell's Paradise",
+        image: "images/helprd.webp",
+        description: "Soğuk ve duygusuz olmasıyla ünlü olan Iwagakure Köyünden Gabimaru, diğer ninjaların tuzağına düştü ve ölüm cezasına çarptırıldı. Öldürmekten ve ihanetten bıktığı için ölmek istiyordu. Ancak duygusuz Gabimaru itiraf etmek istemese de yaşamak için bir nedeni olduğundan dolayı hiçbir yöntem onu öldüremiyordu. Yumuşaması ve suikastçılıkta körelmesine neden olan karısına dönmek istiyordu. Bu yüzden ölemedi. Ünlü cellat Boyun Kesen Asaemon, bunu gördü ve ninjaya bir şey teklif etti. Gabimaru'nun affedilmesi karşılığında hayat iksirini bulmak için Japonya'nın güneyindeki bir adaya keşfe çıkmasını istedi. Ancak bu normal bir ada değildi: cennetti. Ancak ada gizemlerle dolu ve keşif birliği buna hazırlıklı olmayabilir.",
+        year: 2023,
+        genre: "ksiyon, Fantastik, Shounen, Tarihi",
+        page: "hellprd.html"
+    },
+{
+        title: "Mairimashita! Iruma-kun",
+        image: "images/iruma.webp",
+        description: "Suzuki Iruma, para karşılığında sorumsuz ebeveynleri tarafından şeytana satıldı. Şaşırtıcı bir şekilde, bildiği bir sonraki şey, şeytanla yaşadığı ve Şeytan Dünyasında bir okula nakledildiği.",
+        year: 2019,
+        genre: "Fantastik, Okul, Shounen, Doğaüstü Güçler, Komedi, Şeytanlar, Isekai",
+        page: "iruma.html"
+    },
+{
+        title: "Hanma Baki: Son of Ogre",
+        image: "images/bakisog.webp",
+        description: "Güçlü düşmanlarla sayısız zorlu dövüşün üstesinden geldikten sonra, Baki'nin ''Dünyadaki en güçlü yaratık'' olduğu söylenen babası Yujiro Hanma ile yüzleşme zamanı nihayet gelmiştir. Bu dövüşten önce Baki, Bay Unchained (Zincirsiz) olarak da bilinen Biscuit Oliva'yı uygun bir idman arkadaşı olarak seçer. Oliva şu anda, sadece en şiddetli suçlulara ev sahipliği yapan ''Kara Pentagon'' adlı bir hapishanede tutulmaktadır. Baki, Oliva ile dövüşmek için kendini hapsettirerek Kara Pentagon'a girer. Bununla birlikte, arzu ettiği idman arkadaşına ek olarak, burada onu birtakım korkunç dövüşçüler de beklemektedir.",
+        year: 2021,
+        genre: "Aksiyon",
+        page: "bakisog.html"
+    },
+{
+        title: "Zom 100",
+        image: "images/zom100.webp",
+        description: "Çöplerle dolu bir apartman dairesinde, 24 yaşındaki Akira Tendou cansız ve kıskanç gözlerle bir zombi filmi izlemektedir. Japonya'da sömürücü bir şirkette üç zor yıl geçirdikten sonra, ruhu kırılmıştır. Güzel iş arkadaşı Ootori'ye duygularını itiraf edecek cesareti bile toplayamamaktadır. Sonra bir sabah, ev sahibini öğle yemeği yerken bulur - ki o da başka bir kiracıdır! Tüm şehir zombi kaynıyor ve canını kurtarmak için kaçıyor olsa da Akira kendini hiç bu kadar canlı hissetmemişti!",
+        year: 2023,
+        genre: "Aksiyon, Doğaüstü Güçler, Komedi, Korku, Seinen",
+        page: "zom100.html"
+    },
+    {
+        title: "Chainsaw Man",
+        image: "images/chm.webp",
+        description: "Denji'nin çok basit hayalleri vardır; mutlu ve huzurlu bir hayat yaşamak, hoşlandığı bir kızla vakit geçirmek. Denji, yakuza tarafından yüklü miktar borçlarını ödemek için şeytanları öldürmeye zorlandığından, bu gerçeklikten çok uzaktır. Evcil Şeytanı Pochita'yı silah olarak kullanarak, biraz para için her şeyi yapmaya hazırdır. Ne yazık ki, yararlılığını yitirdi ve yakuza ile sözleşmeli bir Şeytan tarafından öldürüldü. Ancak, beklenmedik bir olayda Pochita, Denji'nin cesediyle birleşir ve ona Elektrikli Testere Şeytanının güçlerini verir. Artık vücudunun bazı kısımlarını elektrikli testereye dönüştürebilen yeniden canlanan Denji, düşmanlarını hızlı ve vahşi bir şekilde dağıtmak için yeni yeteneklerini kullanıyor. Olay yerine gelen resmi Şeytan Avcılarının dikkatini çekerek, onlardan biri olarak Kamu Güvenliği Bürosunda çalışması teklif edilir. Şimdi en zorlu düşmanlarla bile yüzleşme imkanına sahip olan Denji, basit gençlik hayallerini gerçekleştirmek için hiçbir şeyden vazgeçmeyecektir.",
+        year: 2022,
+        genre: "Aksiyon, Doğaüstü Güçler, Shounen",
+        page: "chm.html"
+    },
+{
+        title: "Ousama Ranking",
+        image: "images/ousmr.webp",
+        description: "Kralın sağır ve güçsüz ilk oğlu olan Bojji'nin kral olabileceğine kimse inanmıyordu. Ancak o, dünyanın en yüce kralı olmayı kafasına koymuştu. Bir gün Bojji, suikastçi bir klanın hayatta kalan tek ferdi olan Kage(Gölge) ile tanıştı. İlginç bir şekilde onun hislerini anlayan Kage, dünyanın en yüce kralı olma yolundaki uzun macerasında ona eşlik edecekti.",
+        year: 2021,
+        genre: "Fantastik, Macera",
+        page: "ousmr.html"
+    },
+{
+        title: "Kaiju no. 8",
+        image: "images/kn8.webp",
+        description: "Japonya'da uzun yıllardır, korkunç, ''kaijuu'' adı verilen Godzilla benzeri canavarlar belirmektedir. Ve Savunma Birliği olarak bilinen seçkin bir askeri birim, bu canavarlarla savaşıp, sivilleri korumak için her gün hayatlarını riske atarlar. Bu yaratıklardan biri öldürüldükten sonra kalıntılarını temizleme görevi, Profesyonel Kaijuu Temizleme Şirketi altında çalışan ''süpürücülere'' kalır. 32 yaşındaki Kafka Hibino, bir süpürücü olmaktan hiç memnun değildir. Küçük yaşlardan beri, hep bir gün Savunma Birliği'ne katılıp, geçimini kaijuu öldürerek sağlamak istiyordur. Ancak birkaç başarısız girişimden sonra hayallerinden vazgeçer ve iyi bir maaşı olan, sıradan bir hayata çekilir. Yine de, Leno Ichikawa adında hırslı, 18 yaşında yeni bir çalışan Kafka'nın temizlik ekibine katıldığında, Kafka'nın orduya katılma arzusu bir kez daha canlanır... Talihsiz olaylar zinciri ve genç süpürücüyle geçirdiği zamanın ardından Kafka, zorla ağzından içeri giren, parazit tipi bir kaijuyla karşılaşır ve bu yaratık onu humanoid bir canavara dönüştürür. Ve Kafka yeni keşfettiği güçleriyle, hayatı boyunca hayalini kurduğu hayatı yaşamayı son bir kez daha denemeye karar verir.",
+        year: 2024,
+        genre: "Aksiyon, Askeri, Bilim Kurgu, Shounen",
+        page: "kn8.html"
+    },
+{
+        title: "Kage no Jitsuryokusha ni Naritakute!",
+        image: "images/kageno.webp",
+        description: "Büyük kahramanlar ve şeytani kötüler insanların olmak için can attığı karakterlerdir; ancak Cid Kagenou öyle değildir. Her şeyin arkasındaki deha olmayı, ipleri elinde tutmayı ve entrikalarının tüm hikayeyi yönlendirmesini istemektedir. Günümüz Japonya'sındaki önceki hayatında hedeflerine ulaşamamıştı. Ama şimdi, büyülü bir dünyada yeniden doğarak, gölgelerin gerçek yüceliğini gösterecek. Cid sıradan bir mafya karakteri gibi davranırken, gölgelerden gizlenen gizemli tarikatı alt etmeyi amaçlayan (sahte) örgütü Gölge Bahçesi'ne üye toplar. Cid, (sahte) örgütünü, bolca reklam yalanı ile kötü (ancak şaşırtıcı derecede gerçek) Diabolos Tarikatı'na karşı yönetir.",
+        year: 2022,
+        genre: "Fantastik, Aksiyon, Komedi, Isekai",
+        page: "kageno.html"
+    },
+{
+        title: "Dororo",
+        image: "images/dororo.webp",
+        description: "Bir samuray efendisi, yeni doğmuş oğlunun organlarını savaş alanın üstünlük sağlamak için 12 şeytana feda etti. Yine de, terk edilmiş olan bu bebek, bir doktor sayesinde hayatta kalmayı başarır. Vücudunu tek parça olarak geri almak için çok sayıda şeytanı avlamaya karar veren genç kahraman, yolculuğu sırasında Japonya’nın en büyük hırsızı olduğu söylenilen bir yetimle karşılaşır.",
+        year: 2019,
+        genre: "Tarihi, Aksiyon, Samuray, Shounen, Macera, Doğaüstü Güçler, Şeytanlar",
+        page: "dororo.html"
+    },
+{
+        title: "Tensei shitara Slime Datta Ken",
+        image: "images/tenslime.webp",
+        description: "Rimuru Tempest, 37 yaşındaki eski bir insan olan Satou Mikami’nin geçen bir soyguncu tarafından öldürüldükten sonra aldığı fantezi dünyasındaki balçığın yeni adıdır. Sıradan, boş geçmiş yaşamını geride bırakıp, eşsiz yeteneklere sahip balçık canavarı olarak yeni bir hayata başlar.",
+        year: 2018,
+        genre: "Fantastik, Aksiyon, Komedi, Macera, Shounen, Isekai",
+        page: "tenslime.html"
+    },
+{
+        title: "Dr. Stone",
+        image: "images/drstn.webp",
+        description: "Kaçınılmaz bir günde, tüm insanlık kör edici bir ışık parlamasıyla donakalmıştı. Birkaç bin yıl sonra, Liseli Taiju uyanır ve kendini heykellerin dünyasında kaybolmuş şekilde bulur. Ama, yanlız değildir! Onun Bilime aşık arkadaşı Senku kalkmış ve bir kaç aydır çalışıyordu ve bilimin gücüyle medeniyeti yeniden inşa etmek için aklında bir fikri vardı.",
+        year: 2019,
+        genre: "Bilim Kurgu, Shounen, Macera",
+        page: "drstn.html"
+    },
+{
+        title: "Black Clover",
+        image: "images/blckclvr.webp",
+        description: "Asta ve Yuno aynı gün yetimhaneye terk edilmiş iki yetimdir. Çocukken birbirlerine meydan okuyup kimin Büyü İmparatoru olacağını görmeye söz verirler. Ne var ki yıllar geçtikçe ikisinin arasındaki fark uçurumlara dönüşür. Yuno'nun büyü konusunda 10 parmağında 10 marifet varken Asta büyü bile kullanamaz ve bu sebeple fiziksel antrenmanlara yönelir. Pes etmek nedir bilmeyen Asta bir gün inanılmaz bir güç elde eder ve iki arkadaş aynı amacın peşinde yola koyulur.",
+        year: 2017,
+        genre: "Fantastik, Büyü, Aksiyon, Shounen, Komedi",
+        page: "blckclvr.html"
+    },
+    {
+        title: "Vinland Saga",
+        image: "images/vs.webp",
+        description: "Thorfinn, Vikinglerin en büyük savaşçılarından birinin oğludur ve onun gibi bir savaşçı olmak istemektedir ancak babası paralı savaşçı Askeladd tarafından öldürüldüğünde, babasının intikamını almak için tüm hayatını buna adayarak yemin eder. Bu intikamını bir düello ile alıp kazanabilmek için Askeladd’ın lideri olduğu paralı savaşçılara katılır ve kendini İngiltere tahtı ve tacı için yapılan büyük savaşın ortasında bulur. Vinland Saga kısaca Planetes mangasının yaratıcısının elinden çıkma tarihi epik bir İskandinav öyküsüdür.",
+        year: 2019,
+        genre: "Aksiyon, Macera, Tarihi, Seinen, Dram",
+        page: "vs.html"
+    },
+{
+        title: "Mob Sycho 100",
+        image: "images/ms100.webp",
+        description: "Kageyama Shigeo (nam-ı diğer ''Serseri'') psişik güçlere sahip bir 8. sınıf öğrencisidir. Genç yaşından itibaren doğaüstü güçlerini pek çok alanda sergileme fırsatı bulsa da bu özelliklerinin insanlar tarafından hoş karşılanmadığını görünce güçlerini giderek içinde saklamaya başlar. Artık tek arzusu, sınıfındaki Tsubomi adlı kızla arkadaşlık kurmak ve psişik güçlerini nasıl kullanacağını öğütleyen ''rehberi'yle birlikte hayattaki amacını keşfetmektir.",
+        year: 2016,
+        genre: "Aksiyon, Yaşamdan Kesitler, Doğaüstü Güçler, Komedi",
+        page: "ms100.html"
+    },
+    {
+        title: "Bleach",
+        image: "images/bleach.webp",
+        description: "Kurosaki Ichigo 15 yaşında normal bir öğrencidir, ancak ölülerle iletişim kurma becerisine sahiptir. Ichigo'nun babası ve kardeşleri aileye ait bir klinik işletmektedirler. Bir gün, shinigami - ölüm tanrısı - olan Kuchiki Rukia, Ichigo'nun odasına camdan girer ve Ichigo'nun onu görebildiğine çok şaşırır. O anın kargaşasında çevreye gelen hollow - kayıp ruh - ile dövüşürlerken, Rukia güçlerini Ichigo'ya geçirir. Shinigami güçlerini alan Ichigo, Rukia ile beraber hollow'ları yok etmeye başlar.",
+        year: 2004,
+        genre: "Aksiyon, Shounen, Macera, Süper Güçler, Doğaüstü Güçler, Komedi",
+        page: "bleach.html"
+    },
+{
+        title: "Attack on Titan",
+        image: "images/aot.webp",
+        description: "İnsanoğlunu soyunun tükenmesi tehlikesiyle karşı karşıya bırakan Titanlar, yani metrelerce yükseklikte insan formunda ama ilkel dev yaratıklar, insanları yiyerek yok etmektedir. İnsan neslinin son temsilcileri kendilerini yüksek duvarların içine hapsederek korunmuş ve 100 yıldır tek bir Titan bu duvarı aşamamıştır. Ne var ki, bu huzur daha fazla sürmeyecek, insanoğlu nerden geldiklerini bilmedikleri bu düşmanla savaşmak zorunda kalacaktır. Eren, hayatını duvarların içinde geçirmek istemeyen bir genç, Titanlardan insanoğlunun intikamını almaya yemin eder… Shingeki no Kyojin, 4. Taisho Manga Ödülüne aday gösterilmiştir.",
+        year: 2013,
+        genre: "Fantastik, Aksiyon, Shounen, Süper Güçler, Askeri, Gizem, Dram",
+        page: "aot.html"
+    },
+{
+        title: "Death Note ",
+        image: "images/dn.webp",
+        description: "Yagami Light, üniversite giriş sınavlarına hazırlanan bir lise son sınıf öğrencisidir. Light (Raito), Japonya'nın belki de en yetenekli ve zeki öğrencisi olmasına rağmen, yaşadığı dünya ona tat vermemektedir. Her gün gittikçe artan suç oranı ve adalet sisteminin çökmüşlüğü, onun için bu dünyayı daha da anlamsız ve çürümüş kılmaktadır. Bu yüzden de, hiç bir şeyde anlam görmemektedir. Light, bu buhranlarını kendi içinde yaşarken, ders sırasında bir defterin gökten düştüğünü görür. Okul çıkışı elinde olmadan defterin düştüğü yere yönelir. Defterin üstünde ''Death Note'' yazmaktadır. Defteri yerden alıp incelediğinde hiç de inanacağı şeylerle karşılaşmaz. ''Bu deftere ismi yazılan insan ölecektir.'' Nedenini kendi bile bilmeden, defteri alıp evine döner. Evde haberleri izlerken, bir adamın bir anaokulundaki öğrencileri ve öğretmenleri rehin aldığını izler. Defterin gerçekliğini test etmek için rehin alan adamın adını deftere yazar. Ve 40 saniye sonra adam ölür. Defterin gerçekliği karşısında şaşkına dönen Light, kendi ideal dünyasını yaratmak için diğer suçlulara yönelecektir. Ama ya dünya onun varlığını öğrenip peşine dünyanın en iyi dedektifi L'i takarsa?",
+        year: 2006,
+        genre: "Shounen, Doğaüstü Güçler, Polisiye, Psikolojik, Gerilim, Gizem",
+        page: "dn.html"
+    },
+{
+    title: "Violet Evergarden",
+        image: "images/ve.webp",
+        description: "Oto anı oyuncakları, kişilerin konuşmalarını ve duygularını kaydetmesi gereken mekanik oyuncaklardır. İlk olarak Dr. Orlando'nun eşini mutlu etmek için yaptığı bu oyuncaklar, çalışma mekanizması öğrenildikten sonra şirketler tarafından halka satılır. Zamanla çeşitli gruplar otomatik anı oyuncaklarına askeri operasyonlarda kullanılabilecek fonksiyonlar da yükler. İşte Violet Evergarden da bu oyuncaklardan birisidir. Büyüleyici güzelliğiyle Violet, hızla en popüler oto anı oyuncağı haline gelir.",
+        year: 2018,
+        genre: "Fantastik, Yaşamdan Kesitler, Dram",
+        page: "ve.html"
+    },
+    {
+        title: "Code Geass: Lelouch of the Rebellion",
+        image: "images/cg.webp",
+        description: "10 Ağustos 2010'da, Britanya imparatorluğu Japonya'ya savaş açar. Japonya, Britanya İmparatorluğu'nun en yeni silahı olan 'Knightmare Frame'e karşı hiçbir şey yapamaz ve istila edilir. Japonya’nın adı “Alan 11” olarak değiştirilir ve vatandaşlarına da ''11'ler'' adı verilir. Japonya'da yaşayan Britanyalı Lelouch, Britanya’yı yok edeceğine yemin eder. Savaştan yedi yıl sonra; Lelouch lisede okumaktadır. İçinde askeri bir sır barındıran kamyonu çalan teröristler yoldan çıkarlar. Lelouch, kontrol etmek için kamyonun yanına gider. Duyduğu ses yüzünden içine bakmak ister ama içeride mahsur kalır. Kamyon tekrar hareketlenir, üstelik peşlerinde Britanya özel kuvvetleri vardır. Teröristlerden Karen, Nightmare olarak adlandırılan dev robot ile karşı saldırıya geçer. Kaçmayı başaramayan Lelouch kamyonun içerisinde yakalanır. Onu yakalayan çocukluk arkadaşı Suzaku’dur. Bu sırada kapalı olan bölme açılır ve içinden esrarengiz bir kız çıkar. Bu sırada olay yerine gelen Britanya askerleri Lelouch ve kızı yakalar. Leouch'un vurulmasına engel olmak isteyen Suzaku, Britanya askerleri tarafından vurulur. Lelouch’un öldürülmesine engel olmak isteyen kız da vurulur, ölmeden önce Lelouch’a özel bir güç “GEASS” verir. Lelouch, bu gücü Britanya İmparatorluğunu yok etmek için kullanmaya karar verir.",
+        year: 2006,
+        genre: "Mecha, Aksiyon, Okul, Bilim Kurgu, Süper Güçler, Askeri, Dram",
+        page: "cg.html"
+    },
+    {
+        title: "Hunter x Hunter",
+        image: "images/hxh.webp",
+        description: "Gon Freecss, avcı (Hunter) olmak isteyen küçük bir çocuktur. Babası da avcı olmak için ailesini terk etmiş ve efsanevi bir avcı olmuştur. Gon da hem babası için bu kadar önemli olan avcılığı tanımak hem de dünyanın en iyi avcısı olmak istemektedir. Gon 12 yaşına geldiğinde annesi istememesine rağmen avcılık sınavına girmek için evinden ayrılır. Bu sınavı geçmek için hem en zor koşulların üstesinden gelerek hayatta kalmak, hem de bu arada kendisi gibi avcı olmak isteyenlere karşı kendini korumak zorundadır.",
+        year: 2011,
+        genre: "Aksiyon, Macera, Shounen, Süper Güçler",
+        page: "hxh.html"
+    },
+    {
+        title: "Fullmetal Alchemist: Brotherhood",
+        image: "images/fmab.webp",
+        description: "Elric kardeşler Edward ve Alphonse ölen annelerini diriltmek için alchemy’e başvururlar. Ama insan ruhunu ile değiş-tokuş yapılacak eş değerde bir şey bulunmamaktadır. Deney sırasında büyük kardeş Edward bacağını, küçük kardeş Alphonse ise bedenini kaybeder. Edward elindeki son çareyi kullanıp Al’ın ruhunu bir zırha bağlamayı başarır ama bu esnada da kolunu kaybeder. İki kardeş annelerinin dirilmesinin imkansız olduğunu büyük kayıplardan sonra anlar. Automail sayesinde mekanik uzuvlarına kavuşan Ed, kardeşine olanların kendi suçu olduğuna inanır. Al'ın bedenini geri almak ve alchemy’i daha da iyi öğrenmek için Elric kardeşler evlerini yakıp yolcuğa çıkarlar.",
+        year: 2009,
+        genre: "Fantastik, Büyü, Aksiyon, Shounen, Macera, Askeri, Komedi, Dram",
+        page: "fmab.html"
+    },
+    {
+        title: "Sousou no Frieren",
+        image: "images/frieren.webp",
+        description: "Şeytan kral yenildi ve galip olan kahraman grubu dağılmadan geri döndü. Büyücü Frieren, kahraman Himmel, rahip Heiter, ve savaşçı Eisen'den oluşan dört kişilik bu grup, birbirlerine veda etme zamanı geldiğinde on yıllık yolculuklarını anar. Ama zaman kavramı elfler için farklıdır. Frieren yoldaşlarının tek tek, yavaş yavaş ölümlerine tanık olur. Heiter ölmeden önce Fern adındaki insan çırağını Frieren'in yanına verir. Elfin sayısız büyü toplama tutkusundan dolayı harekete geçen bu ikili, eski kahramanların ziyaret ettiği yerleri tekrar ziyaret ederek amaçsız bir yolculuğa çıkarlar. Frieren, seyahat boyunca, şimdi ölen yoldaşlarıyla daha derin bağlar kurma fırsatını kaçırdığı için duyduğu pişmanlıkla yavaş yavaş yüzleşir.",
+        year: 2023,
+        genre: "Dram, Fantastik, Macera, Shounen",
+        page: "frieren.html"
+    },
+    {
+        title: "Mushoku Tensei: Isekai Ittara Honki Dasu",
+        image: "images/mtensei.webp",
+        description: "Tanımadığı birini trafik kazasından kurtarırken ölen 34 yaşındaki bir NEET büyülü bir dünyaya Rudeus Greyrat isminde yeni doğmuş bir bebek olarak reenkarne olur. Geçmiş hayatından ona kalan bilgisi, tecrübesi ve pişmanlıklarıyla beraber daha önce yaptığı yanlışları yapmadan dolu dolu bir hayat yaşamaya çalışmaya karar verir. Oldukça yüksek olan büyü güçleri ve yetişkin beyniyle ailesi ve çevresi tarafından bir dahi olarak görülse de içinde hala bir otaku ruhu taşımaktadır.",
+        year: 2021,
+        genre: "Fantastik, Büyü, Dram, Macera, Ecchi, Isekai",
+        page: "mtensei.html"
+    },
+    {
+        title: "One Punch Man",
+        image: "images/opman.webp",
+        description: "Bu seri cansız duruşu, kel kafası ve de hiç de etkileyici olmayıp her tarafından sıradanlık fışkıran Saitama adındaki genç hakkında. Ne var ki sıradan görünüşünün altında sıradan problemler yatmamakta. İşin aslında kendine zorlu rakipler arayan süper bir kahraman o! Asıl sorun işte burada ortaya çıkıyor. Ne zaman umut vadedebilecek bir rakip ortaya çıksa tek yumrukla amele sümüğü gibi yere yapıştırıyor. Acaba Saitama sonunda kendisine meydan okuyabilecek kötü birisini bulabilecek midir? Meydan okumak için yeni kötüler ararkenki Saitama'nın kolay ve komik zaferlerini sakın ola kaçırmayın!",
+        year: 2015,
+        genre: "Aksiyon, Parodi, Bilim Kurgu, Süper Güçler, Doğaüstü Güçler, Seinen, Komedi",
+        page: "opman.html"
+    },
+    {
+        title: "Demon Slayer: Kimetsu no Yaiba",
+        image: "images/dslayer.webp",
+        description: "Eski çağlardan beri ormanda insan yiyen iblisler olduğu söylentisi gezmektedir. Bundan ötürü yerli halk gece vakti dışarıya çıkmayı hiç göze alamıyordu. Aynı zamanda efsaneye göre geceleri bu kana susamış iblisleri avlayan bir iblis avcısı vardır. Genç Tanjirou için bu söylentiler yakında acı gerçeklere dönüşecekti. Babasının ölümünden beri Tanjirou ailesine bakma görevini üstlenmişti. Hayatları trajedilerle karşılaşmış olsa bile mutluluğu bulmuşlardı. Ama bu mutluluk Tanjirou ailesini katledilmiş buluncaya kadardı ve hayatta kalan tek üyesi olan kız kardeşi Nezuko, bir iblise dönüşmüştü. Şaşırtıcı bir şekilde Nezuko hala insan duygularını ve düşüncelerini taşıyordu. Böylelikle Tanjirou'nun iblislerle dövüşme ve kız kardeşini tekrar insana dönüştürme görevi başladı.",
+        year: 2019,
+        genre: "Tarihi, Aksiyon, Shounen, Doğaüstü Güçler, Şeytanlar",
+        page: "dslayer.html"
+    },
+    {
+        title: "Re:Zero kara Hajimeru Isekai Seikatsu",
+        image: "images/rezero.webp",
+        description: "Lise öğrencisi Subaru Natsuki bir gün bakkaldan dönerken öteki dünyaya çağırılır ve böylece hayatının en büyük dönüm noktası başlar. Kim tarafından çağrıldığını henüz bilmemekteydi ve saldırıya uğradığında işler çok daha kötü bir hal alır. Ancak gümüş saçlı gizemli bir kız ve onun sihirli kedisi kendisini kurtadığında, Subaru ona olan iyilik borcunu ödemek için işbirliği yapar. İkisi beraber ipuçlarını bir araya getirdiğinde, Subaru ve kız saldırıya uğrayıp öldürülür. Bundan sonra, Subaru ''Ölümden Dönüş'' adlı yeteneği kazanmış halde uyanır ve zamanı ölümden geri alabilen çaresiz biri haline gelir ve umutsuzluğun ötesinde kızı ölümün kaderinden kurtarmaya çalışır.",
+        year: 2016,
+        genre: "Fantastik, Psikolojik, Gerilim, Dram, Isekai",
+        page: "rezero.html"
+    },
+    {
+        title: "Cyberpunk: Edgerunners",
+        image: "images/cyberp.webp",
+        description: "Dizi, teknoloji ve vücut değiştirmenin takıntı hâline geldiği gelecekteki bir şehirde, Night City'de hayatta kalmaya çalışan bir sokak çocuğunu konu alan bağımsız, 10 bölümlük bir hikâye anlatıyor. Her şeyini kaybetme tehdidiyle karşı karşıya olan bu çocuk, bir edgerunner, yani siberpunk olarak da bilinen kanun kaçağı bir paralı asker olarak hayatta kalır.",
+        year: 2022,
+        genre: "Aksiyon, Bilim Kurgu",
+        page: "cyberp.html"
+    },
+    {
+        title: "Dungeon Meshi",
+        image: "images/dungeonmeshi.webp",
+        description: "Zindanlar, ejderhalar ve leziz bir canavar yahnisi mi? Maceracılar, arkadaşlarını kurtarmak için lanetli bir krallığa dalıyor ve yolda önlerine çıkanı pişmiş tavuğa çeviriyor!",
+        year: 2024,
+        genre: "Fantastik, Komedi, Seinen",
+        page: "dungeonmeshi.html"
+    },
+    {
+        title: "Kusuriya no Hitorigoto",
+        image: "images/kusuriya.webp",
+        description: "Maomao, eczacı olan babasıyla huzurlu bir hayat yaşıyordu. Ta ki bir gün saraya adi bir hizmetçi olarak satılana kadar. Ancak kraliyet ailesinin arasında uyumlu bir hayat yaşamaya uygun değildi. Bu yüzden imparatorluk varisleri hastalandığında, öne atılmaya ve bir tedavi bulmaya karar verir. Bu, onu terfi ettiren yakışıklı hadım ağası Jinşi'nin dikkatini çeker. Şimdiyse tıbbi gizemleri çözerek ismini duyuruyor.",
+        year: 2023,
+        genre: "Dram, Gizem",
+        page: "kusuriya.html"
+    },
+    {
+        title: "Kaguya-sama: Love is War",
+        image: "images/kaguya.webp",
+        description: "Ülkedeki en yüksek notlara sahip olduğu için dahi ilan edilen Miyuki Shirogane, prestijli Shuchiin Akademisi'ne öğrenci konseyi başkanı olarak seçilir, böylece güzel ve varlıklı başkan yardımcısı Kaguya Shinomiya ile birlikte çalışmaya başlar. İkisinin romantik bir ilişkisi olmamasına rağmen, öğrenciler tarafından mükemmel bir çift olarak kabul görürler.nAncak, gerçek şu ki birlikte geçirdikleri zaman sonrasında, birbirlerinden etkilenirler ve ikisinin de duyguları gelişir. Maalesef iki taraf da itiraf etmeye gönüllü değildir, çünkü bunu bir zayıflık belirtisi olarak görmektedirler. Miyuki ve Kaguya elit öğrenciler olmaktan gurur duyduklarından dolayı, karşı tarafa itiraf ettirmek için ne gerekiyorsa yapmaya kara verirler. Günlük tuhaflıkları sayesinde aşk savaşı başlıyor!",
+        year: 2019,
+        genre: "Romantizm, Okul, Psikolojik, Seinen, Komedi",
+        page: "kaguya.html"
+    },
+
+   
+];
+const itemsPerPage = 7; // Her sayfada gösterilecek anime kartı sayısı
+let currentPage = 1; // Başlangıç sayfası
+
+function createAnimeCards(page) {
+    const animeArchive = document.querySelector('.anime-archive');
+    animeArchive.innerHTML = ''; // Önceki içerikleri temizle
+    window.scrollTo(0, 0); // Sayfayı en üste kaydır
+
+    const startIndex = (page - 1) * itemsPerPage; // Başlangıç indeksi
+    const endIndex = startIndex + itemsPerPage; // Bitiş indeksi
+    const paginatedAnimeList = animeList.slice(startIndex, endIndex); // İlgili sayfanın anime listesi
+
+    paginatedAnimeList.forEach(anime => {
+        const animeCard = document.createElement('div');
+        animeCard.classList.add('anime-card');
+        
+        animeCard.innerHTML = `
+            <div class="anime-image" onclick="openAnime('${anime.title}')">
+                <img src="${anime.image}" alt="${anime.title}">
+            </div>
+            <div class="anime-info">
+                <h2 onclick="openAnime('${anime.title}')">${anime.title}</h2>
+                <p>${anime.description}</p>
+                <p>Yapım Yılı: ${anime.year}</p>
+                <p>Tür: ${anime.genre}</p>
+            </div>
+        `;
+
+        animeArchive.appendChild(animeCard);
+    });
+
+    createPaginationButtons(Math.ceil(animeList.length / itemsPerPage)); // Sayfalandırma butonlarını oluştur
+}
+
+function createPaginationButtons(totalPages) {
+    const paginationContainer = document.querySelector('.pagination');
+    paginationContainer.innerHTML = ''; // Önceki butonları temizle
+
+    // İlk sayfa butonu
+    if (currentPage > 1) {
+        const firstButton = document.createElement('button');
+        firstButton.textContent = '« İlk';
+        firstButton.classList.add('pagination-button');
+        firstButton.onclick = () => {
+            currentPage = 1; // İlk sayfaya git
+            createAnimeCards(currentPage); // Yeni sayfayı oluştur
+        };
+        paginationContainer.appendChild(firstButton);
+    }
+
+    const startPage = Math.max(1, currentPage - 1); // Görünecek ilk sayfa
+    const endPage = Math.min(totalPages, startPage + 2); // Görünecek son sayfa
+
+    for (let i = startPage; i <= endPage; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.classList.add('pagination-button');
+        
+        // Aktif sayfa butonuna 'current' sınıfını ekle
+        if (i === currentPage) {
+            button.classList.add('current');
+        }
+        
+        button.onclick = () => {
+            currentPage = i; // Tıklanan sayfa numarasını güncelle
+            createAnimeCards(currentPage); // Yeni sayfayı oluştur
+        };
+
+        paginationContainer.appendChild(button);
+    }
+
+    // Son sayfa butonu
+    if (currentPage < totalPages) {
+        const lastButton = document.createElement('button');
+        lastButton.textContent = 'Son »';
+        lastButton.classList.add('pagination-button');
+        lastButton.onclick = () => {
+            currentPage = totalPages; // Son sayfaya git
+            createAnimeCards(currentPage); // Yeni sayfayı oluştur
+        };
+        paginationContainer.appendChild(lastButton);
+    }
+
+    // Eğer toplam sayfa sayısı 3'ten fazlaysa, önceki ve sonraki butonları ekleyelim
+    if (totalPages > 3) {
+        if (currentPage > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.textContent = '«';
+            prevButton.classList.add('pagination-button'); // Stil sınıfını ekle
+            prevButton.onclick = () => {
+                currentPage -= 1;
+                createAnimeCards(currentPage);
+            };
+            paginationContainer.prepend(prevButton);
+        }
+
+        if (currentPage < totalPages) {
+            const nextButton = document.createElement('button');
+            nextButton.textContent = '»';
+            nextButton.classList.add('pagination-button'); // Stil sınıfını ekle
+            nextButton.onclick = () => {
+                currentPage += 1;
+                createAnimeCards(currentPage);
+            };
+            paginationContainer.appendChild(nextButton);
+        }
+    }
+}
+
+function openAnime(title) {
+    const selectedAnime = animeList.find(anime => anime.title === title);
+    
+    if (selectedAnime) {
+        window.location.href = selectedAnime.page; // Doğru sayfaya yönlendir
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    createAnimeCards(currentPage); // Sayfa yüklendiğinde kartları oluştur
+});
+
+
+    </script>
+</body>
+</html>

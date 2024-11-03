@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Anime Seyret</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/logo.png" />
+</head>
+<body>
+    <style>
+        @font-face {
+            font-family: consolas;
+            src: url("fonts/consolas.ttf");
+        }
+
+        body {
+            background-image: url('images/77.gif');
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .entirePage {
+            width: 60%;
+            height: auto;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px rgba(75, 0, 130, 0.9) solid;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(75, 0, 130, 0.9);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .entirePage * {
+            position: relative;
+            font-family: "consolas";
+        }
+
+        .mainLogo {
+            width: 15vh;
+           position: relative;
+            top: 23px; /* Sayfanın üstünden 10px mesafe */
+            left: 30px; /* Sayfanın solundan 30px mesafe */
+            cursor: pointer;
+        }
+
+        .mainSearchArea {
+            width: 30vh;
+            height: 5vh;
+            border: 2px white solid;
+            background-color: rgb(181, 181, 181);
+            border-radius: 50px;
+            position: relative;
+            bottom: 50px;
+            text-align: center;
+        }
+
+        .mainHeader {
+            color: white;
+            margin-top: 15px;
+        }
+
+        .mainHeader * {
+            cursor: pointer;
+            text-align: center;
+            border: 1px rgb(255, 255, 255) solid;
+            float: left;
+            background-color: rgba(177, 177, 177, 0.652);
+            width: 23%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+            z-index: 1;
+        }
+
+        .mainHeaderBox:hover {
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+            transform: scale(1.2);
+        }
+
+        .mainHeaderBox:nth-child(1) {
+            margin-left: 50px;
+        }
+
+        .infoSection {
+            margin: 20px auto;
+            margin-top: 15vh;
+            padding: 20px;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 2px solid #4b0082;
+            width: 80%;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .infoSection h2 {
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .infoSection p {
+            margin: 10px 0;
+        }
+
+        /* Footer (alt kısım) stili */
+        #footer {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #4b0082;
+            font-size: 14px;
+            margin-top: 100px;
+            border-radius: 15px;
+        }
+
+        .footerleft {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+    </style>
+    
+    <div id="episodeSelect" class="entirePage" style="display: block; overflow: visible;">
+        <!--Bu kısım tüm sayfalarda aynı.-->
+        <img class="mainLogo" src="images/logo.png" onclick="location.href='index.html'"> <!--LOGO-->
+        <center><input class="mainSearchArea" type="text" placeholder="Arama yapınız..."></center> <!--ARAMA KISMI-->
+        <div class="mainHeader"> <!--anasayfa-takvim-animearşivi-iletişim yeri-->
+            <div class="mainHeaderBox" onclick="location.href='index.html'">Ana Sayfa</div>
+            <div class="mainHeaderBox">Haberler</div>
+            <div class="mainHeaderBox" onclick="location.href='animearsivi.html'">Anime Arşivi</div>
+            <div class="mainHeaderBox" onclick="location.href='iletisim.html'">İletişim</div>
+        </div>
+        <div>
+            <div class="season-buttons" style="text-align: center;" id="seasonButtons"></div>
+            <div id="seasonEpisode" style="text-align: center; margin-top: 10px;"></div>
+        </div>
+
+        <!-- Bilgi alanı -->
+        <div class="infoSection">
+            <h2>İletişim</h2>
+            Reklam, telif hakları, öneri, hata, soru ve istekleriniz için <a href="mailto:info@example.com" style="color: #ffcc00;">info@animeseyret.com</a> adresinden bize ulaşabilirsiniz.
+            <ul>
+                <li>Telif hakkına konu olan eserlerin yasal olmayan bir biçimde paylaşıldığını ve yasal haklarının çiğnendiğini düşünen hak sahipleri veya meslek birlikleri, <a href="mailto:info@example.com" style="color: #ffcc00;">info@animeseyret.com</a> mail adresinden bize ulaşabilirler. Buraya ulaşan talep ve şikayetler incelenecek ve şikayet yerinde görüldüğü takdirde, ihlal olduğu düşünülen içerikler sitemizden kaldırılacaktır.</li>
+            </ul>
+        </div>
+
+        <!-- Footer (kutunun altına eklendi) -->
+        <div id="footer">
+            <div class="footerleft">
+                animeseyret<span> © 2024</span><br>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

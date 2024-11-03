@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/logo.png" />
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+</head>
+
+    <style>
+        @font-face {
+    font-family: consolas;
+    src: url("fonts/consolas.ttf");
+}
+
+body{
+    background-image: url('images/77.gif');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.entirePage{ /*siteyi açınca çıkan büyük kutu (her sayfada bu var)*/
+    width: 60%;
+    height: 260vh;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 3px rgba(75, 0, 130, 0.9) solid;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(75, 0, 130, 0.9);
+    margin-top: 20px;
+    margin-bottom: 100px;
+    overflow: hidden;
+}
+
+.entirePage *{ /*büyük kutunun içindeki herşey*/
+
+    font-family: "consolas";
+}
+
+.mainLogo{ /*logo*/
+    width: 15vh;
+    margin-left: 30px;
+    top: 1%;
+    cursor: pointer
+    
+}
+
+.mainSearchArea{ /*aratma kısmı*/
+    width: 30vh;
+    height: 5vh;
+    border: 2px white solid;
+    background-color: rgb(181, 181, 181);
+    border-radius: 50px;
+    margin-top: -50px;
+    text-align: center;
+}
+
+.mainHeader{ /*anasayfa, takvim vb. tuşlarını kapsayan kutu*/
+    color: white;
+    margin-top: 15px;
+}
+
+.mainHeader *{ /*anasayfa, takvim vb. tuşlarını kapsayan kutunun içindeki herşey*/
+    cursor: pointer;
+    text-align: center;
+    border: 1px rgb(255, 255, 255) solid;
+    float: left;
+    background-color: rgba(177, 177, 177, 0.652);
+    width: 23%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    z-index: 1;
+}
+
+.mainHeaderBox:hover{ /*mainHeader içindeki kutulara sürükleme efekti*/
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+    transform: scale(1.2);
+}
+
+.mainHeaderBox:nth-child(1){
+    margin-left: 50px;
+}  
+.seasonButton {
+    background-color: rgb(86, 17, 151);
+    border: none;
+    border-radius: 25px;
+    width: 12%;
+    height: 6vh;
+    color: white;
+    transition: 0.3s;
+    z-index: 3;
+    margin: 10px auto; /* Yukarıda ve altta boşluk vermek için */
+    margin-top: 7vh;
+    display: inline-block; /* Merkezlenmesini sağlamak için */
+}
+
+    .seasonButton {
+    background-color: rgb(86, 17, 151);
+    border: none;
+    border-radius: 25px;
+    width: 12%;
+    height: 6vh;
+    color: white;
+    transition: 0.3s;
+    z-index: 3;
+    margin: 10px auto; /* Yukarıda ve altta boşluk vermek için */
+    margin-top: 7vh;
+    display: inline-block; /* Merkezlenmesini sağlamak için */
+}
+
+.seasonButton:hover {
+    z-index: 2;
+    box-shadow: 0 0 7px white;
+    transform: scale(1.1)
+}
+
+#seasonEpisode {
+    width: 90%; /* Genişliği %100 yaparak tüm alana yayılmasını sağla */
+    max-height: 40vh;
+    margin: 20px auto; /* Üstte ve altta boşluk vermek için */
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 5px rgba(136, 16, 222, 0.9) solid;
+    border-radius: 10px;
+    box-shadow: 0 0 45px rgba(75, 0, 130, 0.9);
+    overflow-y: scroll;
+    padding: 10px; /* İçeride boşluk bırakmak için */
+}
+.seasonEpisodeButton {
+    width: 100%;
+    background-color: rgb(223, 223, 223, 0.9);
+    border: 2px rgb(184, 156, 192) solid;
+    border-radius: 5px;
+    height: 5vh;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.seasonEpisodeButton:hover {
+    color: #d785fd;
+    text-decoration: none;
+}
+
+#seasonEpisode::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#seasonEpisode {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.video-container {
+            max-width: 800px;
+            margin: auto;
+            padding-top: 12vh;
+        }
+    
+    </style>
+    <!--Anime bölüm seçme-->
+    <div id="episodeSelect" class="entirePage" style="display: block; overflow: visible;">
+        <!--Bu kısım tüm sayfalarda aynı.-->
+        <img class="mainLogo" src="images/logo.png" onclick="location.href='index.html'"> <!--LOGO-->
+        <center><input class="mainSearchArea" type="text" placeholder="Arama yapınız..."></center> <!--ARAMA KISMI-->
+        <div class="mainHeader"> <!--anasayfa-takvim-animearşivi-iletişim yeri-->
+            <div class="mainHeaderBox" onclick="location.href='index.html'">Ana Sayfa</div>
+            <div class="mainHeaderBox">Haberler</div>
+            <div class="mainHeaderBox" onclick="location.href='animearsivi.html'">Anime Arşivi</div>
+            <div class="mainHeaderBox">İletişim</div>
+        </div>
+        <div>
+            <div class="video-container">
+                <!-- Plyr video oynatıcı -->
+                <video id="player" playsinline controls data-poster="path/to/poster.jpg">
+                    <source src="video.mp4" type="video/mp4">
+                </video>
+            </div>
+    </div>
+            <div class="season-buttons" style="text-align: center;" id="seasonButtons"></div>
+        <div id="seasonEpisode" style="text-align: center; margin-top: 10px;"></div>
+    </main>
+<div>
+    <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>
+    <script>
+        // Plyr oynatıcıyı başlat
+        const player = new Plyr('#player', {
+            controls: [
+                'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'
+            ],
+            settings: ['quality', 'speed', 'loop'],
+            quality: {
+                default: 720,
+                options: [1080, 720, 480]
+            }
+        });
+
+        // Video kaynağını ayarlama
+        player.source = {
+    type: 'video',
+    sources: [
+        {
+            src: 'https://vimeo.com/1025689544?share=copy#t=0',
+            provider: 'vimeo',
+        },
+    ],
+};
+
+
+// Episode düğmeleri ve yükleme fonksiyonları:
+const episodesPerSeason = [6];
+const totalSeasons = episodesPerSeason.length;
+const seasonButtons = document.getElementById("seasonButtons");
+
+for (let i = 1; i <= totalSeasons; i++) {
+    const button = document.createElement("button");
+    button.className = "seasonButton";
+    button.textContent = `${i}.Sezon`;
+    button.onclick = () => loadEpisodes(i);
+    seasonButtons.appendChild(button);
+}
+
+function loadEpisodes(season) {
+    const seasonEpisode = document.getElementById("seasonEpisode");
+    seasonEpisode.innerHTML = ""; 
+
+    for (let i = 1; i <= episodesPerSeason[season - 1]; i++) {
+        const episodeButton = document.createElement("button");
+        episodeButton.className = "seasonEpisodeButton";
+        episodeButton.textContent = `${season}.Sezon ${i}.Bölüm`;
+        episodeButton.onclick = () => {
+            // Burada seçilen sezon ve bölüm görüntülenebilir.
+        };
+        seasonEpisode.appendChild(episodeButton);
+    }
+}
+
+window.onload = () => loadEpisodes(1);
+
+    </script>

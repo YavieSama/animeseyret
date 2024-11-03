@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Seyret</title>
+    <link rel="shortcut icon" href="images/logo.png" type="images/logo.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Main Page -->
+    <div id="mainPage" class="entirePage" style="display:block;">
+        <!--Bu kısım tüm sayfalarda aynı.-->
+        <img class="mainLogo" src="images/logo.png" onclick="location.reload()"> <!--LOGO-->
+        <center><input class="mainSearchArea" type="text" placeholder="Arama yapınız..."></center> <!--ARAMA KISMI-->
+        <div class="mainHeader"> <!--anasayfa-takvim-animearşivi-iletişim yeri-->
+            <div class="mainHeaderBox" onclick="location.reload()">Ana Sayfa</div>
+            <div class="mainHeaderBox">Haberler</div>
+            <div class="mainHeaderBox" onclick="location.href='animearsivi.html'">Anime Arşivi</div>
+            <div class="mainHeaderBox" onclick="location.href='iletisim.html'">İletişim</div>
+        </div>
+        <!--Bu kısım tüm sayfalarda aynı.-->
+
+
+        <h2 style="color: white; margin-top: 100px; text-align: center; font-weight: 100;">Öne Çıkan Animeler</h2>
+        <hr style="width: 89%; margin-top: auto; margin-bottom: -80px;">
+
+        <div id="sliderButton1" class="sliderButton" style="top: 32vh; left: 4px; z-index: 3;" onclick="sliderMove(true, document.getElementById('recommendedAnime'), 'sliderX1')">‹</div>
+        <div id="sliderButton2" class="sliderButton" style="top: 26vh; left: 95.2%; z-index: 3;" onclick="sliderMove(false, document.getElementById('recommendedAnime'), 'sliderX1')">›</div>
+        <div id="recommendedAnime">
+            <img src="images/bluelock.webp" class="rec1" onclick="location.href='bluelock.html'">
+            <img src="images/bx.webp" class="rec2" onclick="location.href='bx.html'">
+            <img src="images/dandadan.webp" class="rec1" onclick="location.href='dandadan.html'">
+            <img src="images/is.webp" class="rec2" onclick="location.href='is.html'">
+            <img src="images/jjk.webp" class="rec1" onclick="location.href='jjk.html'">
+            <img src="images/mha.webp" class="rec2" onclick="location.href='mha.html'">
+            <img src="images/oshinoko.webp" class="rec1" onclick="location.href='oshinoko.html'">
+            <img src="images/slf.webp" class="rec2" onclick="location.href='slf.html'">
+            <img src="images/uzumaki.webp" class="rec1" onclick="location.href='uzumaki.html'">
+            <img src="images/wws.webp" class="rec2" onclick="location.href='wws.html'">
+        </div>
+
+        <h2 style="color: white; margin-top: 100px; text-align: center; font-weight: 100;">Yeni Gelen Bölümler</h2>
+        <hr style="width: 89%; margin-top: auto; margin-bottom: -80px;">
+
+        <div id="sliderButton5" class="sliderButton" style="top: 32vh; left: 4px; z-index: 3;" onclick="sliderMove(true, document.getElementById('onlistanime'), 'sliderX2')">‹</div>
+        <div id="sliderButton6" class="sliderButton" style="top: 26vh; left: 95.2%; z-index: 3;" onclick="sliderMove(false, document.getElementById('onlistanime'), 'sliderX2')">›</div>
+        <div id="onlistanime">
+            <img src="images/bluelock.webp" class="rec1" onclick="openAnime('episodeSelect', 'blueLock')">
+            <img src="images/bx.webp" class="rec2" onclick="openAnime('episodeSelect', 'blueExorcist')">
+            <img src="images/dandadan.webp" class="rec1" onclick="openAnime('episodeSelect', 'dandadan')">
+            <img src="images/is.webp" class="rec2" onclick="openAnime('episodeSelect', 'isekai')">
+            <img src="images/jjk.webp" class="rec1" onclick="location.href='jjk.html'">
+            <img src="images/mha.webp" class="rec2" onclick="openAnime('episodeSelect', 'myHeroAcademia')">
+            <img src="images/oshinoko.webp" class="rec1" onclick="location.href='oshinoko.html'">
+            <img src="images/slf.webp" class="rec2" onclick="openAnime('episodeSelect', 'shangriLaFrontier')">
+            <img src="images/uzumaki.webp" class="rec1" onclick="openAnime('episodeSelect', 'uzumaki')">
+            <img src="images/wws.webp" class="rec2" onclick="openAnime('episodeSelect', 'wistoriaWandSword')">
+        </div>
+
+        <h2 style="color: white; margin-top: 100px; text-align: center; font-weight: 100;">Yeni Eklenen Animeler</h2>
+        <hr style="width: 89%; margin-top: auto; margin-bottom: -80px;">
+
+        <div id="sliderButton5" class="sliderButton" style="top: 32vh; left: 4px; z-index: 3;" onclick="sliderMove(true, document.getElementById('newaddedanime'), 'sliderX3')">‹</div>
+        <div id="sliderButton6" class="sliderButton" style="top: 26vh; left: 95.2%; z-index: 3;" onclick="sliderMove(false, document.getElementById('newaddedanime'), 'sliderX3')">›</div>
+        <div id="newaddedanime">
+            <img src="images/srkj.webp" class="rec1" onclick="location.href='srkj.html'">
+            <img src="images/anh.webp" class="rec2" onclick="location.href='anh.html'">
+            <img src="images/pktsc.webp" class="rec1" onclick="location.href='pktsc.html'">
+            <img src="images/anm.webp" class="rec2" onclick="location.href='anm.html'">
+            <img src="images/maou2099.webp" class="rec1" onclick="location.href='maou2099.html'">
+            <img src="images/mecha.webp" class="rec2" onclick="location.href='mecha.html'">
+            <img src="images/kwms.webp" class="rec1" onclick="location.href='kwms.html'">
+            <img src="images/hnık.webp" class="rec2" onclick="location.href='hnık.html'">
+            <img src="images/snsw.webp" class="rec1" onclick="location.href='snsw.html'">
+            <img src="images/rwt.webp" class="rec2" onclick="location.href='rwt.html'">
+        </div>
+    </div>
+
+        <div id="seasonEpisode">
+            
+        </div>
+    </div>
+
+    <script src="script.js">
+    </script>
+</body>
+</html>

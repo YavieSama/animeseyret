@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plyr Video Player with Vimeo</title>
+
+    <!-- Plyr CSS dosyasını dahil et -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+    <style>
+        .video-container {
+            max-width: 800px;
+            margin: auto;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container">
+        <!-- Plyr video oynatıcı -->
+        <video id="player" playsinline controls data-poster="path/to/poster.jpg">
+            <source src="https://player.vimeo.com/video/VIDEO_ID" type="video/mp4">
+            <!-- Altyazı dosyası (varsa) -->
+            <track kind="captions" label="English" srclang="en" src="captions_en.vtt" default>
+        </video>
+    </div>
+
+<!-- Plyr JS dosyasını dahil et -->
+<script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>
+<script>
+    // Plyr oynatıcıyı başlat
+    const player = new Plyr('#player', {
+        controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
+        settings: ['quality', 'speed', 'loop'],
+        quality: {
+            default: 720,
+            options: [1080, 720, 480]
+        }
+    });
+    
+    // Vimeo ile çalışmak için URL'yi değiştirme
+    player.source = {
+        type: 'video',
+        sources: [
+            {
+                src: 'https://vimeo.com/1025577133?share=copy#t=0',
+                provider: 'vimeo',
+            },
+        ],
+        tracks: [
+            {
+                kind: 'captions',
+                label: 'English',
+                srclang: 'en',
+                src: 'captions_en.vtt',
+                default: true,
+            },
+        ],
+    };
+</script>
+
+</body>
+</html>
