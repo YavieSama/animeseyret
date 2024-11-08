@@ -20,7 +20,7 @@ body {
     border: 3px rgba(75, 0, 130, 0.9) solid;
     border-radius: 5px;
     box-shadow: 0 0 30px rgba(75, 0, 130, 0.9);
-    height: 100vh;
+    height: 140vh;
     width: 80%;
 }
 
@@ -126,11 +126,24 @@ input:focus, textarea:focus {
     margin-top: 12px;
     border-radius: 6px;
     overflow: hidden;
+    padding-bottom: 8px; /* Çizgi ile başlık arasındaki boşluk */
+    position: relative;
+    width: 100%;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 57%;
+    height: 2px; /* Çizgi kalınlığı */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 20%, rgba(95, 95, 95, 0.8) 20%);
 }
 
 .anime {
     border-radius: 6px;
-    height: 252.314px;
+    height: 250px;
     width: fit-content;
     overflow: hidden; /* Ensure overflow is hidden */
     display: flex; /* Flexbox for centering */
@@ -146,6 +159,7 @@ input:focus, textarea:focus {
     max-width: 100%; /* Prevent overflow */
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
+    
 }
 
 .anime:hover .anime-logo {
@@ -153,6 +167,31 @@ input:focus, textarea:focus {
     cursor: pointer;
 }
 
+.anime2 {
+    border-radius: 6px;
+    width: 250px; /* Genişliği artırarak yatay bir görünüm */
+    height: fit-content; /* İçeriğe göre yüksekliği ayarla */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px;
+}
+
+.anime2-logo {
+    width: 100%; /* Konteynerin tüm genişliğini kaplar */
+    height: auto; /* En-boy oranını korur */
+    max-height: 100%; /* Taşma olmaması için maksimum yükseklik */
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    margin: 15px;
+}
+
+.anime2:hover .anime2-logo {
+    transform: scale(1.1);
+    cursor: pointer;
+}
 
 
 @media screen and (max-width: 1000px) {
